@@ -1,0 +1,39 @@
+<div class="container">
+    <form (ngSubmit)="adicionarConta()" [formGroup]="cadastroForm">
+        <div class="p-grid max-w-30rem text-center mx-auto">
+            <div class="p-col-12 p-fluid mb-6">
+                <h2>Login</h2>
+            </div>
+
+            <div class="p-col-12 p-fluid my-3">
+                <input
+                    pInputText
+                    type="email"
+                    name="email"
+                    formControlName="email"
+                    placeholder="Email"
+                />
+            </div>
+
+            <div class="p-col-12 p-fluid my-3">
+                <input
+                    pInputText
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    formControlName="password"
+                />
+            </div>
+
+            <div class="p-col-12 my-3">
+                <button
+                    class="w-full"
+                    pButton
+                    type="submit"
+                    label="Cadastrar"
+                    [disabled]="cadastroForm.invalid"
+                ></button>
+            </div>
+        </div>
+    </form>
+</div>
