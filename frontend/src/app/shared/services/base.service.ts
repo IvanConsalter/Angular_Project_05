@@ -2,9 +2,11 @@ import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 
 import { throwError } from 'rxjs';
 
+import { environment } from './../../../environments/environment';
+
 export abstract class BaseService {
 
-    protected urlService: string = 'http://localhost:5001/api/v1';
+    protected urlService: string = environment.apiUrl;
 
     protected obterHeaderJson() {
         return {
