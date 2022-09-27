@@ -83,9 +83,14 @@ export class CadastroComponent implements OnInit, AfterViewInit {
 
             this.usuario.confirmPassword = this.cadastroForm.get('password')?.value;
             this.contaService.registarUsuario(this.usuario).subscribe(
-                () => {},
+                (resposta) => { this.processarSucesso(resposta) },
                 (error) => console.log(error)
             );
         }
+    }
+
+    processarSucesso(resposta: any): void {
+        this.cadastroForm.reset();
+        this.contaService.LocalStorage.salvarDadosLocaisUsuario(resposta);
     }
 }
