@@ -1,26 +1,26 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { ReactiveFormsModule } from '@angular/forms'
 
-import { ContaRoutingModule } from './conta.route';
+import { ContaRoutingModule } from './conta.route'
 
-import { ContaAppComponent } from './conta.app.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
-import { LoginComponent } from './login/login.component';
+import { ContaAppComponent } from './conta.app.component'
+import { CadastroComponent } from './cadastro/cadastro.component'
+import { LoginComponent } from './login/login.component'
 
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext'
+import { ButtonModule } from 'primeng/button'
 
 @NgModule({
-    declarations: [ContaAppComponent, CadastroComponent, LoginComponent],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
+	declarations: [ContaAppComponent, CadastroComponent, LoginComponent],
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
 
-        ContaRoutingModule,
+		ContaRoutingModule,
 
-        InputTextModule,
-        ButtonModule
-    ],
+		InputTextModule,
+		ButtonModule,
+	],
 })
 export class ContaModule {}
