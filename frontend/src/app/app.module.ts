@@ -10,10 +10,11 @@ import { EventService } from './demo/service/event.service'
 import { IconService } from './demo/service/icon.service'
 import { NodeService } from './demo/service/node.service'
 import { PhotoService } from './demo/service/photo.service'
+import { SegurancaModule } from './seguranca/seguranca.module'
 
 @NgModule({
 	declarations: [AppComponent],
-	imports: [AppRoutingModule, AppLayoutModule],
+	imports: [AppRoutingModule, AppLayoutModule, SegurancaModule],
 	providers: [
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		CountryService,

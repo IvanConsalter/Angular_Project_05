@@ -4,6 +4,7 @@ import { filter, Subscription } from 'rxjs'
 import { LayoutService } from './service/app.layout.service'
 import { AppSidebarComponent } from './app.sidebar.component'
 import { AppTopBarComponent } from './app.topbar.component'
+import { AccountService } from '../seguranca/account.service'
 
 @Component({
 	selector: 'app-layout',
@@ -20,11 +21,15 @@ export class AppLayoutComponent implements OnDestroy {
 
 	@ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent
 
+	usuarioLogado: boolean;
+
 	constructor(
 		public layoutService: LayoutService,
 		public renderer: Renderer2,
-		public router: Router
+		public router: Router,
+		private accountService: AccountService
 	) {
+		this.usuarioLogado = this.accountService.usuarioLogado();
 		this.overlayMenuOpenSubscription =
 			this.layoutService.overlayOpen$.subscribe(() => {
 				if (!this.menuOutsideClickListener) {

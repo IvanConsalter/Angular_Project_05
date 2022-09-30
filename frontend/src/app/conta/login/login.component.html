@@ -1,1 +1,39 @@
-<p>login works!</p>
+<div class="container">
+	<form class=" w-4" (ngSubmit)="login()" [formGroup]="loginForm">
+		<div class="p-grid text-center">
+			<div class="p-col-12 p-fluid mb-6">
+				<h2>Login</h2>
+			</div>
+
+			<div class="p-col-12 p-fluid my-3">
+				<input
+					pInputText
+					type="email"
+					name="email"
+					formControlName="email"
+					placeholder="Email"
+				/>
+			</div>
+
+			<div class="p-col-12 p-fluid my-3">
+				<input
+					pInputText
+					type="password"
+					name="password"
+					placeholder="Password"
+					formControlName="password"
+				/>
+			</div>
+
+			<div class="p-col-12 my-3">
+				<button
+					class="w-full"
+					pButton
+					type="submit"
+					label="Login"
+					[disabled]="loginForm.invalid"
+				></button>
+			</div>
+		</div>
+	</form>
+</div>

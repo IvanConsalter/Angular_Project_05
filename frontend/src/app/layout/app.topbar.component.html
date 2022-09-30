@@ -8,16 +8,17 @@
 			}}.svg"
 			alt="logo"
 		/>
-		<span>SAKAI</span>
 	</a>
 
-	<button
-		#menubutton
-		class="p-link layout-menu-button layout-topbar-button"
-		(click)="layoutService.onMenuToggle()"
-	>
-		<i class="pi pi-bars"></i>
-	</button>
+	<div *ngIf="!usuarioLogado">
+		<button
+			#menubutton
+			class="p-link layout-menu-button layout-topbar-button"
+			(click)="layoutService.onMenuToggle()"
+		>
+			<i class="pi pi-bars"></i>
+		</button>
+	</div>
 
 	<button
 		#topbarmenubutton
@@ -35,7 +36,7 @@
 				layoutService.state.profileSidebarVisible
 		}"
 	>
-		<div>
+		<div *ngIf="usuarioLogado">
 			<button class="p-link layout-topbar-button">
 				<i class="pi pi-calendar"></i>
 				<span>Calendar</span>
@@ -52,7 +53,7 @@
 				<span>Settings</span>
 			</button>
 		</div>
-		<div>
+		<div *ngIf="!usuarioLogado">
 			<button
 				pButton
 				type="button"

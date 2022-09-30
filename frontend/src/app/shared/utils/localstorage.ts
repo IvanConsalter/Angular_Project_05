@@ -1,6 +1,6 @@
 export class LocalStorage {
-	public obterUsuario() {
-		return JSON.parse(localStorage.getItem('usuario') || '')
+	public obterUsuario(): any {
+		return JSON.parse(localStorage.getItem('usuario')!);
 	}
 
 	public salvarDadosLocaisUsuario(resposta: any) {
@@ -8,13 +8,13 @@ export class LocalStorage {
 		this.salvarUsuario(resposta.userToken)
 	}
 
-	public LimparDadosLocaisUsuario() {
+	public limparDadosLocaisUsuario() {
 		localStorage.removeItem('token')
 		localStorage.removeItem('usuario')
 	}
 
-	public obterTokenUsuario(): string {
-		return localStorage.getItem('token') || ''
+	public obterTokenUsuario(): any {
+		return localStorage.getItem('token');
 	}
 
 	public salvarTokenUsuario(token: string) {
