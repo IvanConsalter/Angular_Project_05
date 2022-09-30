@@ -1,9 +1,21 @@
+import { LocalStorage } from './../shared/utils/localstorage';
 import { Injectable } from '@angular/core'
-import { CanDeactivate } from '@angular/router'
+import {
+	CanActivate,
+	CanDeactivate,
+  Router,
+} from '@angular/router'
 import { CadastroComponent } from './cadastro/cadastro.component'
 
 @Injectable()
-export class ContaGuard implements CanDeactivate<CadastroComponent> {
+export class ContaGuard
+	implements CanDeactivate<CadastroComponent>, CanActivate
+{
+
+  localStorage = new LocalStorage();
+
+  constructor(private router: Router) {}
+
 	canDeactivate(component: CadastroComponent) {
 		if (component.mudancasNaoSalvas) {
 			return window.confirm(
@@ -13,4 +25,12 @@ export class ContaGuard implements CanDeactivate<CadastroComponent> {
 
 		return true
 	}
+
+	canActivate() {
+    if(this.localStorage.obterTokenUsuario()) {
+      this.router.navigate(['']);
+    }
+
+    return true;
+  }
 }

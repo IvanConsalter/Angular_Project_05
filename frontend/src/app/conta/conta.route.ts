@@ -13,11 +13,13 @@ const contaRouterConfig: Routes = [
 			{
 				path: 'cadastro',
 				component: CadastroComponent,
-				canDeactivate: [ContaGuard]
+				canDeactivate: [ContaGuard],
+				canActivate: [ContaGuard]
 			},
 			{
 				path: 'login',
-				component: LoginComponent
+				component: LoginComponent,
+				canActivate: [ContaGuard]
 			},
 		],
 	},
