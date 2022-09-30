@@ -32,9 +32,11 @@ export class CadastroComponent implements OnInit, AfterViewInit {
 	@ViewChildren(FormControlName, { read: ElementRef })
 	formInputsElements: Array<ElementRef>
 
-	validationMessages: ValidationMessages
-	genericValidator: GenericValidator
-	displayMessage: DisplayMessage
+	validationMessages: ValidationMessages;
+	genericValidator: GenericValidator;
+	displayMessage: DisplayMessage;
+
+	mudancasNaoSalvas: boolean = false;
 
 	erros: Array<any> = []
 
@@ -77,6 +79,7 @@ export class CadastroComponent implements OnInit, AfterViewInit {
 			this.displayMessage = this.genericValidator.processarMensagens(
 				this.cadastroForm
 			)
+			this.mudancasNaoSalvas = true;
 		})
 	}
 
@@ -104,5 +107,6 @@ export class CadastroComponent implements OnInit, AfterViewInit {
 	processarSucesso(resposta: any): void {
 		this.cadastroForm.reset()
 		this.contaService.LocalStorage.salvarDadosLocaisUsuario(resposta)
+		this.mudancasNaoSalvas = false;
 	}
 }

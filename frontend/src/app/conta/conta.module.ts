@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ReactiveFormsModule } from '@angular/forms'
 
+import { ContaGuard } from './conta.guard'
 import { ContaRoutingModule } from './conta.route'
 
 import { ContaAppComponent } from './conta.app.component'
@@ -22,5 +23,6 @@ import { ButtonModule } from 'primeng/button'
 		InputTextModule,
 		ButtonModule,
 	],
+	providers: [ContaGuard]
 })
 export class ContaModule {}
