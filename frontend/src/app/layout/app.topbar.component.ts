@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core'
+import { Router } from '@angular/router'
 import { MenuItem } from 'primeng/api'
-import { AccountService } from '../seguranca/account.service'
+import { LocalStorage } from '../shared/utils/localstorage'
 import { LayoutService } from './service/app.layout.service'
 
 @Component({
@@ -9,6 +10,7 @@ import { LayoutService } from './service/app.layout.service'
 })
 export class AppTopBarComponent {
 	items!: MenuItem[]
+	localStorage = new LocalStorage();
 
 	@ViewChild('menubutton') menuButton!: ElementRef
 
@@ -16,13 +18,18 @@ export class AppTopBarComponent {
 
 	@ViewChild('topbarmenu') menu!: ElementRef
 
-	usuarioLogado: boolean;
+	usuarioLogado: string;
 
 	constructor(
 		public layoutService: LayoutService,
-		private accountService: AccountService
+		private router: Router
 	) {
-		this.usuarioLogado = this.accountService.usuarioLogado();
+		this.usuarioLogado = this.localStorage.obterUsuario().email;
+	}
+
+	logout(): void {
+		this.localStorage.limparDadosLocaisUsuario();
+		this.router.navigate(['']);
 	}
 
 }
