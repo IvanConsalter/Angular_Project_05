@@ -11,9 +11,15 @@ import { LoginComponent } from './login/login.component'
 
 import { InputTextModule } from 'primeng/inputtext'
 import { ButtonModule } from 'primeng/button'
+import { HomeComponent } from './home/home.component'
 
 @NgModule({
-	declarations: [ContaAppComponent, CadastroComponent, LoginComponent],
+	declarations: [
+		ContaAppComponent,
+		CadastroComponent,
+		LoginComponent,
+		HomeComponent,
+	],
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
@@ -23,6 +29,6 @@ import { ButtonModule } from 'primeng/button'
 		InputTextModule,
 		ButtonModule,
 	],
-	providers: [ContaGuard]
+	providers: [ContaGuard],
 })
 export class ContaModule {}

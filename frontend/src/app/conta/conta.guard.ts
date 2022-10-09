@@ -28,7 +28,7 @@ export class ContaGuard
 
 	canActivate() {
     if(this.localStorage.obterTokenUsuario()) {
-      this.router.navigate(['']);
+      this.router.navigate(['dashboard']);
     }
 
     return true;

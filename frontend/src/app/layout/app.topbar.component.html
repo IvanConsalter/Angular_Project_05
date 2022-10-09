@@ -10,7 +10,7 @@
 		/>
 	</a>
 
-	<div *ngIf="!usuarioLogado">
+	<div>
 		<button
 			#menubutton
 			class="p-link layout-menu-button layout-topbar-button"
@@ -36,7 +36,7 @@
 				layoutService.state.profileSidebarVisible
 		}"
 	>
-		<div *ngIf="usuarioLogado">
+		<div>
 			<button class="p-link layout-topbar-button">
 				<i class="pi pi-calendar"></i>
 				<span>Calendar</span>
@@ -52,23 +52,6 @@
 				<i class="pi pi-cog"></i>
 				<span>Settings</span>
 			</button>
-		</div>
-		<div *ngIf="!usuarioLogado">
-			<button
-				pButton
-				type="button"
-				icon="pi pi-sign-in"
-				label="Login"
-				class="mx-3"
-				[routerLink]="'conta/login'"
-			></button>
-			<button
-				pButton
-				type="button"
-				icon="pi pi-id-card"
-				label="Cadastrar"
-				[routerLink]="'conta/cadastro'"
-			></button>
 		</div>
 	</div>
 </div>

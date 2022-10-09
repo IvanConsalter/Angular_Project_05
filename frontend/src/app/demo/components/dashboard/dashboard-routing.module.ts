@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
+import { ContaGuard } from 'src/app/conta/conta.guard'
 import { DashboardComponent } from './dashboard.component'
 
 @NgModule({
 	imports: [
-		RouterModule.forChild([{ path: '', component: DashboardComponent }]),
+		RouterModule.forChild([
+			{
+				path: '',
+				component: DashboardComponent,
+			}
+		]),
 	],
 	exports: [RouterModule],
 })

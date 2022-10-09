@@ -8,19 +8,19 @@ import { AppLayoutComponent } from './layout/app.layout.component'
 			[
 				{
 					path: '',
+					loadChildren: () =>
+						import('./conta/conta.module').then((m) => m.ContaModule),
+				},
+				{
+					path: '',
 					component: AppLayoutComponent,
 					children: [
 						{
-							path: '',
+							path: 'dashboard',
 							loadChildren: () =>
 								import('./demo/components/dashboard/dashboard.module').then(
 									(m) => m.DashboardModule
 								),
-						},
-						{
-							path: 'conta',
-							loadChildren: () =>
-								import('./conta/conta.module').then((m) => m.ContaModule),
 						},
 					],
 				},

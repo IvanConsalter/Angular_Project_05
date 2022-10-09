@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 		this.loginForm.reset()
     console.log('Sucesso', resposta);
 		this.contaService.LocalStorage.salvarDadosLocaisUsuario(resposta);
-		this.router.navigate(['']);
+		this.router.navigate(['dashboard']);
 	}
 
 }
