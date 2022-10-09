@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { ContaGuard } from 'src/app/conta/conta.guard'
+import { AccountGuard } from 'src/app/seguranca/account.guard'
 import { DashboardComponent } from './dashboard.component'
 
 @NgModule({
@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard.component'
 			{
 				path: '',
 				component: DashboardComponent,
+				canActivate: [AccountGuard]
 			}
 		]),
 	],
