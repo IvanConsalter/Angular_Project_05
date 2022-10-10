@@ -22,6 +22,13 @@ import { AppLayoutComponent } from './layout/app.layout.component'
 									(m) => m.DashboardModule
 								),
 						},
+						{
+							path: 'fornecedores',
+							loadChildren: () =>
+								import('./fornecedor/fornecedor.module').then(
+									(m) => m.FornecedorModule
+								),
+						},
 					],
 				},
 			],
