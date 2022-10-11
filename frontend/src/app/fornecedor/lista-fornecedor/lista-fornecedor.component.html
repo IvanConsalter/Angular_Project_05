@@ -1,1 +1,98 @@
-<p>lista-fornecedor works!</p>
+<div class="grid">
+	<div class="col-12">
+		<div class="card px-6 py-6">
+			<p-toolbar styleClass="mb-4">
+				<ng-template pTemplate="left">
+					<div class="my-2">
+						<button
+							pButton
+							pRipple
+							label="Novo Fornecedor"
+							icon="pi pi-plus"
+						></button>
+					</div>
+				</ng-template>
+			</p-toolbar>
+
+			<p-table
+				#dt
+				[value]="fornecedores"
+				[columns]="colunas"
+				responsiveLayout="scroll"
+				[rows]="10"
+				[globalFilterFields]="[
+          'nome',
+          'documento',
+				]"
+				[rows]="10"
+				[paginator]="true"
+				[rowsPerPageOptions]="[10, 20, 30]"
+				[showCurrentPageReport]="true"
+				currentPageReportTemplate="Mostrando {first} de {last} em um total de {totalRecords}"
+				[rowHover]="true"
+				dataKey="id"
+			>
+				<ng-template pTemplate="caption">
+					<div
+						class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+					>
+						<h5 class="m-0">Fornecedores</h5>
+						<span class="block mt-2 md:mt-0 p-input-icon-left">
+							<i class="pi pi-search"></i>
+							<input
+								pInputText
+								type="text"
+								(input)="onGlobalFilter(dt, $event)"
+								placeholder="Buscar..."
+								class="w-full sm:w-auto"
+							/>
+						</span>
+					</div>
+				</ng-template>
+				<ng-template pTemplate="header">
+					<tr>
+						<th pSortableColumn="nome">
+							Nome <p-sortIcon field="nome"></p-sortIcon>
+						</th>
+						<th pSortableColumn="documento">
+							Documento <p-sortIcon field="documento"></p-sortIcon>
+						</th>
+						<th pSortableColumn="ativo">
+							Ativo <p-sortIcon field="ativo"></p-sortIcon>
+						</th>
+						<th></th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-fornecedor>
+					<tr>
+						<td>
+              {{ fornecedor.nome }}
+            </td>
+						<td>
+              {{ fornecedor.documento }}
+            </td>
+						<td>
+              {{ fornecedor.ativo ? 'SIM' : 'NÃO' }}
+            </td>
+						<td>
+							<div class="flex">
+								<button
+									pButton
+									pRipple
+									icon="pi pi-pencil"
+									class="mr-2"
+								></button>
+								<button
+									pButton
+									pRipple
+									icon="pi pi-trash"
+									class="p-button-danger"
+								></button>
+							</div>
+						</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</div>
+</div>
