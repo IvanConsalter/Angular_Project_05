@@ -1,0 +1,89 @@
+<div class="col-12">
+	<div class="card">
+		<h5 class="col-12 p-0">Cadastro novo fornecedor</h5>
+		<div class="p-fluid p-formgrid grid">
+
+			<div class="col-6">
+				<label htmlFor="nome">Nome</label>
+				<input pInputText id="nome" type="text" />
+			</div>
+
+      <div class="col-12 grid">
+        <div class="col-3">
+          <div class="field-radiobutton">
+            <p-radioButton
+              name="tipoFornecedor"
+              value="1"
+              [(ngModel)]="valRadio"
+              id="pessoaFisica"
+            ></p-radioButton>
+            <label for="pessoaFisica">Pessoa Física</label>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="field-radiobutton">
+            <p-radioButton
+              name="tipoFornecedor"
+              value="2"
+              [(ngModel)]="valRadio"
+              id="pessoaJuridica"
+            ></p-radioButton>
+            <label for="pessoaJuridica">Pessoa Jurídica</label>
+          </div>
+        </div>
+      </div>
+
+			<div class="col-6">
+				<label htmlFor="documento">Documento</label>
+				<input pInputText id="documento" type="text" />
+			</div>
+
+      <div class="col-12">
+        <div class="field-checkbox">
+          <p-checkbox name="ativo" value="true" [(ngModel)]="valCheck" id="ativo"></p-checkbox>
+          <label for="ativo">Ativo</label>
+        </div>
+      </div>
+
+		</div>
+
+    <h5 class="col-12 p-0">Endereço</h5>
+
+		<div class="p-fluid p-formgrid grid">
+
+			<div class="col-6">
+				<label htmlFor="cep">CEP</label>
+				<input pInputText id="cep" type="text" />
+			</div>
+
+			<div class="col-6">
+				<label htmlFor="logradouro">Logradouro</label>
+				<input pInputText id="logradouro" type="text" />
+			</div>
+
+			<div class="col-6">
+				<label htmlFor="numero">Número</label>
+				<input pInputText id="numero" type="text" />
+			</div>
+
+			<div class="col-6">
+				<label htmlFor="complemento">Complemento</label>
+				<input pInputText id="complemento" type="text" />
+			</div>
+
+			<div class="col-6">
+				<label htmlFor="bairro">Bairro</label>
+				<input pInputText id="bairro" type="text" />
+			</div>
+
+			<div class="col-6">
+				<label htmlFor="cidade">Cidade</label>
+				<input pInputText id="cidade" type="text" />
+			</div>
+
+      <div class="col-6">
+        <p-dropdown [options]="estados" [(ngModel)]="estadoSelecionado" placeholder="Selecione um Estado"></p-dropdown>
+      </div>
+		</div>
+	</div>
+</div>
