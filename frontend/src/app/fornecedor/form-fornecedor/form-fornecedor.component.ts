@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
+import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
+import { fromEvent, merge, Observable } from 'rxjs';
+import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/shared/utils/generic-form-validation';
+import { Fornecedor } from '../models/fornecedor.model';
 
 @Component({
   selector: 'app-form-fornecedor',
@@ -7,6 +11,8 @@ import { SelectItem } from 'primeng/api';
   styleUrls: ['./form-fornecedor.component.scss']
 })
 export class FormFornecedorComponent implements OnInit {
+
+  @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
   estados: Array<SelectItem> = [
     { label: 'Acre', value: 'AC' },
@@ -35,14 +41,89 @@ export class FormFornecedorComponent implements OnInit {
     { label: 'São Paulo', value: 'SP' },
     { label: 'Sergipe', value: 'SE' },
     { label: 'Tocantins', value: 'TO' },
-  ]
+  ];
   valRadio: string = '';
   valCheck: string[] = [];
   estadoSelecionado: any;
 
-  constructor() { }
+  fornecedorForm: FormGroup;
+  fornecedor: Fornecedor = new Fornecedor();
+
+  validationMessages: ValidationMessages;
+  genericValidator: GenericValidator;
+  displayMessage: DisplayMessage = {};
+
+  mudancasNaoSalvas: boolean;
+
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
+    this.validationMessages = {
+      nome: {
+        required: 'Informe o Nome',
+      },
+      documento: {
+        required: 'Informe o Documento',
+      },
+      logradouro: {
+        required: 'Informe o Logradouro',
+      },
+      numero: {
+        required: 'Informe o Número',
+      },
+      bairro: {
+        required: 'Informe o Bairro',
+      },
+      cep: {
+        required: 'Informe o CEP'
+      },
+      cidade: {
+        required: 'Informe a Cidade',
+      },
+      estado: {
+        required: 'Informe o Estado',
+      }
+    };
+
+    this.genericValidator = new GenericValidator(this.validationMessages);
+  }
 
   ngOnInit(): void {
+    this.configurarFornecedorForm();
+  }
+
+  ngAfterViewInit(): void {
+    let controlBlurs: Observable<any>[] = this.formInputElements
+      .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+
+    merge(...controlBlurs).subscribe(() => {
+      this.displayMessage = this.genericValidator.processarMensagens(this.fornecedorForm);
+      this.mudancasNaoSalvas = true;
+    });
+  }
+
+  configurarFornecedorForm(): void {
+    this.fornecedorForm = this.formBuilder.group({
+      nome: ['', [Validators.required]],
+      documento: ['', [Validators.required]],
+      ativo: ['', [Validators.required]],
+      tipoFornecedor: ['', [Validators.required]],
+
+      endereco: this.formBuilder.group({
+        logradouro: ['', [Validators.required]],
+        numero: ['', [Validators.required]],
+        complemento: [''],
+        bairro: ['', [Validators.required]],
+        cep: ['', [Validators.required]],
+        cidade: ['', [Validators.required]],
+        estado: ['', [Validators.required]]
+      })
+    });
+  }
+
+  adicionarFornecedor(): void {
+    console.log(this.fornecedorForm.value);
+
   }
 
 }
