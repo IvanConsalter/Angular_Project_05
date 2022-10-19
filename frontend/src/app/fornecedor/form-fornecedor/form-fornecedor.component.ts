@@ -5,6 +5,9 @@ import { fromEvent, merge, Observable } from 'rxjs';
 import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/shared/utils/generic-form-validation';
 import { Fornecedor } from '../models/fornecedor.model';
 
+import { NgBrazilValidators, MASKS } from 'ng-brazil';
+// import * as utilsBr from 'js-brasil';
+
 @Component({
   selector: 'app-form-fornecedor',
   templateUrl: './form-fornecedor.component.html',
@@ -13,6 +16,8 @@ import { Fornecedor } from '../models/fornecedor.model';
 export class FormFornecedorComponent implements OnInit {
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
+
+  MASKS = MASKS;
 
   estados: Array<SelectItem> = [
     { label: 'Acre', value: 'AC' },
@@ -64,6 +69,7 @@ export class FormFornecedorComponent implements OnInit {
       },
       documento: {
         required: 'Informe o Documento',
+        cpf: 'CPF em formato inválido'
       },
       logradouro: {
         required: 'Informe o Logradouro',
@@ -105,7 +111,7 @@ export class FormFornecedorComponent implements OnInit {
   configurarFornecedorForm(): void {
     this.fornecedorForm = this.formBuilder.group({
       nome: ['', [Validators.required]],
-      documento: ['', [Validators.required]],
+      documento: ['', [Validators.required, NgBrazilValidators.cpf]],
       ativo: ['', [Validators.required]],
       tipoFornecedor: ['', [Validators.required]],
 
@@ -119,6 +125,8 @@ export class FormFornecedorComponent implements OnInit {
         estado: ['', [Validators.required]]
       })
     });
+
+    this.fornecedorForm.patchValue({ ativo: true, tipoFornecedor: '1' });
   }
 
   adicionarFornecedor(): void {

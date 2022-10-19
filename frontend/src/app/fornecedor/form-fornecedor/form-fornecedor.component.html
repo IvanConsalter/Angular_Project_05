@@ -54,6 +54,8 @@
 						id="documento"
 						type="text"
 						formControlName="documento"
+						cpf
+						[textMask]="{mask: MASKS['cpf'].textMask}"
 						[ngClass]="{ 'ng-dirty ng-invalid': displayMessage['documento'] }"
 					/>
 					<small
