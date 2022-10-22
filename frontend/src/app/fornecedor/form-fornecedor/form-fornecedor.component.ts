@@ -1,3 +1,4 @@
+import { StringUtils } from './../../shared/utils/string-utils';
 import { Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
@@ -6,6 +7,8 @@ import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/sh
 import { Fornecedor } from '../models/fornecedor.model';
 
 import { NgBrazilValidators, MASKS } from 'ng-brazil';
+import { CepConsulta } from '../models/cep-consulta.model';
+import { FornecedorService } from '../services/fornecedor.service';
 // import * as utilsBr from 'js-brasil';
 
 @Component({
@@ -63,7 +66,8 @@ export class FormFornecedorComponent implements OnInit {
   mudancasNaoSalvas: boolean;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private fornecedorService: FornecedorService
   ) {
     this.validationMessages = {
       nome: {
@@ -178,6 +182,30 @@ export class FormFornecedorComponent implements OnInit {
 
   }
 
+  buscarCep(event: any): void {
+    let cep = event.value;
 
+    cep = StringUtils.onlyNumber(cep);
+    if(cep.length < 8) return;
+
+    this.fornecedorService.consultarCep(cep).subscribe(
+      (resposta) => {
+        this.preencherEnderecoConsulta(resposta);
+      },
+      (error) => console.log(error)
+    )
+  }
+
+  preencherEnderecoConsulta(cep: CepConsulta): void {
+    this.fornecedorForm.patchValue({
+      endereco: {
+        logradouro: cep.logradouro,
+        bairro: cep.bairro,
+        cep: cep.cep,
+        cidade: cep.localidade,
+        estado: cep.uf
+      }
+    })
+  }
 
 }

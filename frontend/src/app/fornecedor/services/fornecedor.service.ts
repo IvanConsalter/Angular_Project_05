@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from 'src/app/shared/services/base.service';
 import { Fornecedor } from '../models/fornecedor.model';
+import { CepConsulta } from '../models/cep-consulta.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class FornecedorService extends BaseService {
       .pipe(catchError(super.serviceError));
   }
 
+  consultarCep(cep: string): Observable<CepConsulta> {
+    return this.http.get<CepConsulta>(`https://viacep.com.br/ws/${cep}/json`)
+      .pipe(catchError(super.serviceError));
+  }
 
 }

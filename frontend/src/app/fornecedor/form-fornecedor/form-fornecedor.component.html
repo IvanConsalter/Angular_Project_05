@@ -91,6 +91,7 @@
 							cep
 							[textMask]="{mask: MASKS['cep'].textMask}"
 							[ngClass]="{ 'ng-dirty ng-invalid': displayMessage['cep'] }"
+							(blur)="buscarCep($event.target)"
 						/>
 						<small
 							id="username-help"
@@ -118,44 +119,6 @@
 							*ngIf="displayMessage['logradouro']"
 						>
 							<p [innerHTML]="displayMessage['logradouro']"></p>
-						</small>
-					</div>
-
-					<div class="col-6">
-						<label htmlFor="numero">Número</label>
-						<input
-							pInputText
-							id="numero"
-							type="text"
-							formControlName="numero"
-							[ngClass]="{ 'ng-dirty ng-invalid': displayMessage['numero'] }"
-						/>
-						<small
-							id="username-help"
-							class="p-error"
-							*ngIf="displayMessage['numero']"
-						>
-							<p [innerHTML]="displayMessage['numero']"></p>
-						</small>
-					</div>
-
-					<div class="col-6">
-						<label htmlFor="complemento">Complemento</label>
-						<input
-							pInputText
-							id="complemento"
-							type="text"
-							formControlName="complemento"
-							[ngClass]="{
-								'ng-dirty ng-invalid': displayMessage['complemento']
-							}"
-						/>
-						<small
-							id="username-help"
-							class="p-error"
-							*ngIf="displayMessage['complemento']"
-						>
-							<p [innerHTML]="displayMessage['complemento']"></p>
 						</small>
 					</div>
 
@@ -196,7 +159,46 @@
 					</div>
 
 					<div class="col-6">
+						<label htmlFor="documento">Estado</label>
 						<p-dropdown [options]="estados" formControlName="estado" placeholder="Selecione um Estado"></p-dropdown>
+					</div>
+
+					<div class="col-6">
+						<label htmlFor="numero">Número</label>
+						<input
+							pInputText
+							id="numero"
+							type="text"
+							formControlName="numero"
+							[ngClass]="{ 'ng-dirty ng-invalid': displayMessage['numero'] }"
+						/>
+						<small
+							id="username-help"
+							class="p-error"
+							*ngIf="displayMessage['numero']"
+						>
+							<p [innerHTML]="displayMessage['numero']"></p>
+						</small>
+					</div>
+
+					<div class="col-6">
+						<label htmlFor="complemento">Complemento</label>
+						<input
+							pInputText
+							id="complemento"
+							type="text"
+							formControlName="complemento"
+							[ngClass]="{
+								'ng-dirty ng-invalid': displayMessage['complemento']
+							}"
+						/>
+						<small
+							id="username-help"
+							class="p-error"
+							*ngIf="displayMessage['complemento']"
+						>
+							<p [innerHTML]="displayMessage['complemento']"></p>
+						</small>
 					</div>
 
 				</ng-container>
