@@ -55,7 +55,6 @@
 						type="text"
 						formControlName="documento"
 						placeholder="{{ textoDocumento }}"
-						cnpj
 						[textMask]="getTipoFornecedorForm().value === '1' ? {mask: MASKS['cpf'].textMask} : {mask: MASKS['cnpj'].textMask}"
 						[ngClass]="{ 'ng-dirty ng-invalid': displayMessage['documento'] }"
 					/>

@@ -1,4 +1,4 @@
-import { catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -21,6 +21,14 @@ export class FornecedorService extends BaseService {
     return this.http
       .get<Array<Fornecedor>>(`${this.urlService}/fornecedores`)
       .pipe(catchError(super.serviceError));
+  }
+
+  novoFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
+    return this.http.post<Fornecedor>(`${this.urlService}/fornecedores`, fornecedor, this.ObterAuthHeaderJson())
+        .pipe(
+          map(super.extractData),
+          catchError(super.serviceError)
+        )
   }
 
   consultarCep(cep: string): Observable<CepConsulta> {

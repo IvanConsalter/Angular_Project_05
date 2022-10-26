@@ -9,6 +9,7 @@ import { Fornecedor } from '../models/fornecedor.model';
 import { NgBrazilValidators, MASKS } from 'ng-brazil';
 import { CepConsulta } from '../models/cep-consulta.model';
 import { FornecedorService } from '../services/fornecedor.service';
+import { Router } from '@angular/router';
 // import * as utilsBr from 'js-brasil';
 
 @Component({
@@ -66,6 +67,7 @@ export class FormFornecedorComponent implements OnInit {
   mudancasNaoSalvas: boolean;
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private fornecedorService: FornecedorService
   ) {
@@ -138,12 +140,12 @@ export class FormFornecedorComponent implements OnInit {
   trocarValidacaoDocumento(): void {
     if(this.getTipoFornecedorForm().value === '1') {
       this.getDocumentoForm().clearValidators();
-      this.getTipoFornecedorForm().setValidators([Validators.required, NgBrazilValidators.cpf]);
+      this.getDocumentoForm().setValidators([Validators.required, NgBrazilValidators.cpf]);
       this.textoDocumento = 'CPF (requerido)';
     }
     else {
       this.getDocumentoForm().clearValidators();
-      this.getTipoFornecedorForm().setValidators([Validators.required, NgBrazilValidators.cnpj]);
+      this.getDocumentoForm().setValidators([Validators.required, NgBrazilValidators.cnpj]);
       this.textoDocumento = 'CNPJ (requerido)';
     }
   }
@@ -159,7 +161,7 @@ export class FormFornecedorComponent implements OnInit {
   configurarFornecedorForm(): void {
     this.fornecedorForm = this.formBuilder.group({
       nome: ['', [Validators.required]],
-      documento: ['', [NgBrazilValidators.cpf]],
+      documento: ['', [Validators.required, NgBrazilValidators.cpf]],
       ativo: ['', [Validators.required]],
       tipoFornecedor: ['', [Validators.required]],
 
@@ -178,8 +180,20 @@ export class FormFornecedorComponent implements OnInit {
   }
 
   adicionarFornecedor(): void {
-    console.log(this.fornecedorForm.value);
+    if(this.fornecedorForm.dirty && this.fornecedorForm.valid) {
+      this.fornecedor = Object.assign({}, this.fornecedor, this.fornecedorForm.value);
 
+      this.fornecedor.endereco.cep = StringUtils.onlyNumber(this.fornecedor.endereco.cep);
+      this.fornecedor.documento = StringUtils.onlyNumber(this.fornecedor.documento);
+      this.fornecedor.tipoFornecedor = +this.fornecedor.tipoFornecedor;
+
+      this.fornecedorService.novoFornecedor(this.fornecedor).subscribe(
+        () => {
+          this.router.navigate(['/fornecedores']);
+        },
+        (error) => console.error(error)
+      )
+    }
   }
 
   buscarCep(event: any): void {
