@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router'
 import { FormFornecedorComponent } from './form-fornecedor/form-fornecedor.component';
 import { ListaFornecedorComponent } from './lista-fornecedor/lista-fornecedor.component';
+import { FornecedorResolver } from './resolver/fornecedor.resolver';
 
 const fornecedorRouterConfig: Routes = [
 	{
@@ -11,6 +12,13 @@ const fornecedorRouterConfig: Routes = [
 	{
 		path: 'novo',
 		component: FormFornecedorComponent
+	},
+	{
+		path: 'editar/:idFornecedor',
+		component: FormFornecedorComponent,
+		resolve: {
+			fornecedor: FornecedorResolver
+		}
 	}
 ];
 
@@ -18,7 +26,8 @@ const fornecedorRouterConfig: Routes = [
   imports: [
     RouterModule.forChild(fornecedorRouterConfig)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+	providers: [FornecedorResolver]
 })
 
 export class FornecedorRoutingModule { }

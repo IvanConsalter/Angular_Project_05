@@ -9,7 +9,7 @@ import { Fornecedor } from '../models/fornecedor.model';
 import { NgBrazilValidators, MASKS } from 'ng-brazil';
 import { CepConsulta } from '../models/cep-consulta.model';
 import { FornecedorService } from '../services/fornecedor.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // import * as utilsBr from 'js-brasil';
 
 @Component({
@@ -67,6 +67,7 @@ export class FormFornecedorComponent implements OnInit {
   mudancasNaoSalvas: boolean;
 
   constructor(
+    private activateRoute: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private fornecedorService: FornecedorService
@@ -106,6 +107,7 @@ export class FormFornecedorComponent implements OnInit {
 
   ngOnInit(): void {
     this.configurarFornecedorForm();
+    console.log(this.activateRoute.snapshot.data['fornecedor']);
   }
 
   ngAfterViewInit(): void {

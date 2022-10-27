@@ -23,6 +23,11 @@ export class FornecedorService extends BaseService {
       .pipe(catchError(super.serviceError));
   }
 
+  buscarPorId(id: string) {
+    return this.http.get<Fornecedor>(`${this.urlService}/fornecedores/${id}`, this.ObterAuthHeaderJson())
+      .pipe(catchError(super.serviceError));
+  }
+
   novoFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
     return this.http.post<Fornecedor>(`${this.urlService}/fornecedores`, fornecedor, this.ObterAuthHeaderJson())
         .pipe(
