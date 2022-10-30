@@ -60,6 +60,8 @@ export class FormFornecedorComponent implements OnInit {
   fornecedorForm: FormGroup;
   fornecedor: Fornecedor = new Fornecedor();
 
+  idEndereco: string;
+
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
@@ -107,7 +109,15 @@ export class FormFornecedorComponent implements OnInit {
 
   ngOnInit(): void {
     this.configurarFornecedorForm();
-    console.log(this.activateRoute.snapshot.data['fornecedor']);
+    if(this.activateRoute.snapshot.data['fornecedor']) {
+      this.fornecedor = this.activateRoute.snapshot.data['fornecedor'];
+      this.idEndereco = this.fornecedor.endereco.id;
+      this.fornecedorForm.patchValue(this.fornecedor);
+      this.fornecedorForm.patchValue({ tipoFornecedor: this.fornecedor.tipoFornecedor.toString() });
+    }
+    else {
+      this.fornecedor = new Fornecedor();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -181,21 +191,54 @@ export class FormFornecedorComponent implements OnInit {
     this.fornecedorForm.patchValue({ ativo: true, tipoFornecedor: '1' });
   }
 
-  adicionarFornecedor(): void {
+  salvarFornecedor(): void {
     if(this.fornecedorForm.dirty && this.fornecedorForm.valid) {
-      this.fornecedor = Object.assign({}, this.fornecedor, this.fornecedorForm.value);
 
-      this.fornecedor.endereco.cep = StringUtils.onlyNumber(this.fornecedor.endereco.cep);
-      this.fornecedor.documento = StringUtils.onlyNumber(this.fornecedor.documento);
-      this.fornecedor.tipoFornecedor = +this.fornecedor.tipoFornecedor;
-
-      this.fornecedorService.novoFornecedor(this.fornecedor).subscribe(
-        () => {
-          this.router.navigate(['/fornecedores']);
-        },
-        (error) => console.error(error)
-      )
+      if(this.fornecedor.id) {
+        this.atualizarFornecedor();
+      }
+      else {
+        this.novoFornecedor();
+      }
     }
+  }
+
+  novoFornecedor(): void {
+    this.fornecedor = Object.assign({}, this.fornecedor, this.fornecedorForm.value);
+
+    this.converterParaNumeros();
+
+    this.fornecedorService.novoFornecedor(this.fornecedor).subscribe(
+      () => {
+        this.router.navigate(['/fornecedores']);
+      },
+      (error) => console.error(error)
+    )
+  }
+
+  atualizarFornecedor(): void {
+    this.fornecedor = Object.assign({}, this.fornecedor, this.fornecedorForm.value);
+    this.fornecedor.endereco.id = this.idEndereco;
+    this.fornecedor.endereco.fornecedorId = this.fornecedor.id;
+    this.converterParaNumeros();
+    console.log(this.fornecedor);
+
+    this.fornecedorService.atualizarFornecedor(this.fornecedor).subscribe(
+      () => {
+        this.fornecedorService.atualizarEndereco(this.fornecedor).subscribe(
+          () => { },
+          (error) => console.error(error))
+
+        this.router.navigate(['/fornecedores']);
+      },
+      (error) => console.error(error)
+    )
+  }
+
+  converterParaNumeros(): void {
+    this.fornecedor.endereco.cep = StringUtils.onlyNumber(this.fornecedor.endereco.cep);
+    this.fornecedor.documento = StringUtils.onlyNumber(this.fornecedor.documento);
+    this.fornecedor.tipoFornecedor = +this.fornecedor.tipoFornecedor;
   }
 
   buscarCep(event: any): void {

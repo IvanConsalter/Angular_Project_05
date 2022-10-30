@@ -36,6 +36,25 @@ export class FornecedorService extends BaseService {
         )
   }
 
+  atualizarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
+    return this.http.put<Fornecedor>(`${this.urlService}/fornecedores/${fornecedor.id}`, fornecedor, this.ObterAuthHeaderJson())
+        .pipe(
+          map(super.extractData),
+          catchError(super.serviceError)
+        )
+  }
+
+  atualizarEndereco(fornecedor: Fornecedor): Observable<any> {
+    return this.http.put<any>(
+      `${this.urlService}/fornecedores/endereco/${fornecedor.endereco.id}`,
+      fornecedor.endereco,
+        this.ObterAuthHeaderJson())
+          .pipe(
+            map(super.extractData),
+            catchError(super.serviceError)
+          )
+  }
+
   consultarCep(cep: string): Observable<CepConsulta> {
     return this.http.get<CepConsulta>(`https://viacep.com.br/ws/${cep}/json`)
       .pipe(catchError(super.serviceError));
