@@ -55,6 +55,16 @@ export class FornecedorService extends BaseService {
           )
   }
 
+  excluirFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
+    return this.http.delete<Fornecedor>(
+      `${this.urlService}/fornecedores/${fornecedor.id}`,
+      this.ObterAuthHeaderJson())
+      .pipe(
+        map(super.extractData),
+        catchError(super.serviceError)
+      )
+  }
+
   consultarCep(cep: string): Observable<CepConsulta> {
     return this.http.get<CepConsulta>(`https://viacep.com.br/ws/${cep}/json`)
       .pipe(catchError(super.serviceError));

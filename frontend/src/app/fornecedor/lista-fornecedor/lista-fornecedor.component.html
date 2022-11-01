@@ -89,6 +89,7 @@
 									pRipple
 									icon="pi pi-trash"
 									class="p-button-danger"
+									(click)="excluirFornecedor(fornecedor)"
 								></button>
 							</div>
 						</td>
@@ -98,3 +99,14 @@
 		</div>
 	</div>
 </div>
+
+<p-dialog [(visible)]="mostrarDialogExclusao" header="Confirmar" [modal]="true" [style]="{width:'450px'}">
+	<div class="flex align-items-center justify-content-center">
+			<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+			<span *ngIf="fornecedor">Tem certeza em excluir o fornecedor: <b>{{fornecedor.nome}}</b>?</span>
+	</div>
+	<ng-template pTemplate="footer">
+			<button pButton pRipple icon="pi pi-times" class="p-button-text" label="Não" (click)="mostrarDialogExclusao = false"></button>
+			<button pButton pRipple icon="pi pi-check" class="p-button-text" label="Sim" (click)="confirmarExclusaoFornecedor()"></button>
+	</ng-template>
+</p-dialog>

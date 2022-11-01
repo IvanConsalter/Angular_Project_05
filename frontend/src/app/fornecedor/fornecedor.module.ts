@@ -18,6 +18,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { DropdownModule } from 'primeng/dropdown';
     TableModule,
     RadioButtonModule,
     CheckboxModule,
-    DropdownModule
+    DropdownModule,
+    DialogModule
   ]
 })
 export class FornecedorModule { }
