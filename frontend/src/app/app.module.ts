@@ -11,12 +11,19 @@ import { IconService } from './demo/service/icon.service'
 import { NodeService } from './demo/service/node.service'
 import { PhotoService } from './demo/service/photo.service'
 import { SegurancaModule } from './seguranca/seguranca.module'
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
+import { ErrorInterceptorService } from './shared/services/error-interceptor.service'
+
+export const httpInterceptorsProviders = [
+	{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true }
+];
 
 @NgModule({
 	declarations: [AppComponent],
 	imports: [AppRoutingModule, AppLayoutModule, SegurancaModule],
 	providers: [
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
+		httpInterceptorsProviders,
 		CountryService,
 		CustomerService,
 		EventService,

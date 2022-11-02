@@ -1,6 +1,7 @@
 import { RouterModule } from '@angular/router'
 import { NgModule } from '@angular/core'
 import { AppLayoutComponent } from './layout/app.layout.component'
+import { AcessoNegadoComponent } from './core/acesso-negado/acesso-negado.component'
 
 @NgModule({
 	imports: [
@@ -30,6 +31,10 @@ import { AppLayoutComponent } from './layout/app.layout.component'
 								),
 						},
 					],
+				},
+				{
+					path: 'acesso-negado',
+					component: AcessoNegadoComponent
 				},
 			],
 			{
