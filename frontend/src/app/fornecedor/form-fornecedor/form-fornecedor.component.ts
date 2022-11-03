@@ -210,6 +210,7 @@ export class FormFornecedorComponent implements OnInit {
 
     this.fornecedorService.novoFornecedor(this.fornecedor).subscribe(
       () => {
+        this.mudancasNaoSalvas = false;
         this.router.navigate(['/fornecedores']);
       },
       (error) => console.error(error)
@@ -226,10 +227,12 @@ export class FormFornecedorComponent implements OnInit {
     this.fornecedorService.atualizarFornecedor(this.fornecedor).subscribe(
       () => {
         this.fornecedorService.atualizarEndereco(this.fornecedor).subscribe(
-          () => { },
-          (error) => console.error(error))
+          () => {
+            this.mudancasNaoSalvas = false;
+            this.router.navigate(['/fornecedores']);
+          },
+        (error) => console.error(error))
 
-        this.router.navigate(['/fornecedores']);
       },
       (error) => console.error(error)
     )

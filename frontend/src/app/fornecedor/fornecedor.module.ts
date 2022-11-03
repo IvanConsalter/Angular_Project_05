@@ -19,6 +19,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
+import { FornecedorGuard } from './guards/fornecedor.guard';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,10 @@ import { DialogModule } from 'primeng/dialog';
     CheckboxModule,
     DropdownModule,
     DialogModule
+  ],
+  providers: [
+    FornecedorGuard
   ]
+
 })
 export class FornecedorModule { }
