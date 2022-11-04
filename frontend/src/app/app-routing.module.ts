@@ -30,6 +30,13 @@ import { AcessoNegadoComponent } from './core/acesso-negado/acesso-negado.compon
 									(m) => m.FornecedorModule
 								),
 						},
+						{
+							path: 'produtos',
+							loadChildren: () =>
+								import('./produto/produto.module').then(
+									(m) => m.ProdutoModule
+								),
+						},
 					],
 				},
 				{
