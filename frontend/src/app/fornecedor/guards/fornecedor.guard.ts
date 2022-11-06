@@ -30,7 +30,7 @@ export class FornecedorGuard
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		if (!this.localStorage.obterTokenUsuario()) {
-			this.router.navigate(['/conta/login'])
+			this.router.navigate(['/login'])
 		}
 
 		let user = this.localStorage.obterUsuario()
