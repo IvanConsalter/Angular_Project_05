@@ -12,6 +12,6 @@ export class Produto {
 }
 
 export interface IFornecedor{
-  id: string;
-  nome: string;
+  fornecedorId: string;
+  nomeFornecedor: string;
 }

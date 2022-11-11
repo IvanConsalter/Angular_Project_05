@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { FormProdutoComponent } from "./form-produto/form-produto.component";
 import { ProdutoGuard } from "./guards/produto.guard";
 import { ListaProdutoComponent } from "./lista-produto/lista-produto.component";
+import { ProdutoResolver } from "./resolver/produto.resolver";
 
 const produtoRouterConfig: Routes = [
   {
@@ -16,6 +17,15 @@ const produtoRouterConfig: Routes = [
 		component: FormProdutoComponent,
 		canActivate: [ProdutoGuard],
 		data: [{ claim: { nome: 'Produto', value: 'Adicionar'} }]
+	},
+  {
+		path: 'editar/:idProduto',
+		component: FormProdutoComponent,
+    resolve: {
+      produto: ProdutoResolver
+    },
+		canActivate: [ProdutoGuard],
+		data: [{ claim: { nome: 'Produto', value: 'Atualizar'} }]
 	}
 ];
 

@@ -14,8 +14,15 @@ export class ProdutoService extends BaseService {
     super();
   }
 
+  buscarPorId(id: string): Observable<Produto> {
+    return this.http.get<Produto>(`${this.urlService}/produtos/${id}`, super.ObterAuthHeaderJson())
+      .pipe(
+        catchError(super.serviceError)
+      );
+  }
+
   consultarProdutos(): Observable<Array<Produto>> {
-    return this.http.get<Array<Produto>>(`http://localhost:5001/api/v1/produtos`, super.ObterAuthHeaderJson())
+    return this.http.get<Array<Produto>>(`${this.urlService}/produtos`, super.ObterAuthHeaderJson())
       .pipe(
         catchError(super.serviceError)
       );

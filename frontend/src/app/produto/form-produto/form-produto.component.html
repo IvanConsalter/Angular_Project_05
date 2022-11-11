@@ -1,16 +1,20 @@
-<form (ngSubmit)="(adicionarProduto)" [formGroup]="produtoForm">
+<form (ngSubmit)="adicionarProduto()" [formGroup]="produtoForm">
 	<div class="col-12">
 		<div class="card">
 			<div class="col-12 p-0">
 				<div class="p-fluid p-formgrid grid">
-					<div class="col-12 md:col-6">
-						<label for="fornecedor">Fornecedor</label>
-						<p-dropdown
-							[options]="fornecedores"
-							formControlName="fornecedor"
-							placeholder="Selecione"
-						></p-dropdown>
-					</div>
+
+					<ng-container formGroupName="fornecedorForm">
+						<div class="col-12 md:col-6">
+							<label for="fornecedor">Fornecedor</label>
+							<p-dropdown
+								id="fornecedor"
+								[options]="fornecedores"
+								formControlName="fornecedor"
+								placeholder="Selecione"
+							></p-dropdown>
+						</div>
+					</ng-container>
 
 					<div class="col-12 md:col-6">
 						<label htmlFor="bairro">Nome</label>
@@ -57,7 +61,13 @@
 					<div class="col-12 md:col-6">
 						<div class="p-inputgroup">
 							<span class="p-inputgroup-addon">R$</span>
-							<input type="text" pInputText placeholder="Valor" />
+							<input
+								pInputText
+								id="valor"
+								type="text"
+								formControlName="valor"
+								placeholder="Valor"
+							/>
 						</div>
 					</div>
 
@@ -78,6 +88,7 @@
 								pButton
 								icon="pi pi-angle-left"
 								label="Voltar"
+								[routerLink]="['/produtos']"
 							></button>
 							<button
 								pButton

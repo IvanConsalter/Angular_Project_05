@@ -1,9 +1,11 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ElementRef, ViewChildren, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { fromEvent, merge, Observable } from 'rxjs';
 import { FornecedorService } from 'src/app/fornecedor/services/fornecedor.service';
 import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/shared/utils/generic-form-validation';
+import { IFornecedor, Produto } from '../models/produto.model';
 
 @Component({
   selector: 'app-form-produto',
@@ -14,8 +16,10 @@ export class FormProdutoComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
+  fornecedor: IFornecedor;
   fornecedores: Array<SelectItem> = [];
 
+  produto: Produto;
   produtoForm: FormGroup;
 
   validationMessages: ValidationMessages;
@@ -24,6 +28,7 @@ export class FormProdutoComponent implements OnInit, AfterViewInit {
   mudancasNaoSalvas: boolean;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private fornecedorService: FornecedorService
   ) {
@@ -52,6 +57,17 @@ export class FormProdutoComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.configurarProdutoForm();
     this.carregarDropdownFornecedores();
+    if(this.activatedRoute.snapshot.data['produto']) {
+      this.produto = this.activatedRoute.snapshot.data['produto'];
+      this.produtoForm.patchValue(this.produto);
+      this.fornecedor = { nomeFornecedor: this.produto.nomeFornecedor, fornecedorId: this.produto.fornecedorId };
+      this.produtoForm.controls['fornecedorForm'].patchValue({ fornecedor: this.fornecedor });
+      console.log(this.produtoForm.value);
+
+    }
+    else {
+      this.produto = new Produto();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -70,7 +86,9 @@ export class FormProdutoComponent implements OnInit, AfterViewInit {
       dataCadastro: [''],
       ativo: [''],
       nomeFornecedor: [''],
-      fornecedor: ['']
+      fornecedorForm: this.formBuilder.group({
+        fornecedor: [null, Validators.required]
+      })
     });
 
     this.produtoForm.patchValue({ ativo: true });
@@ -94,7 +112,7 @@ export class FormProdutoComponent implements OnInit, AfterViewInit {
     this.fornecedorService.obterTodos().subscribe(
       (resposta) => {
         this.fornecedores = resposta.map( fornecedor => {
-          return { label: fornecedor.nome, value: { nome: fornecedor.nome, id: fornecedor.id } }
+          return { label: fornecedor.nome, value: { nomeFornecedor: fornecedor.nome, fornecedorId: fornecedor.id }}
         })
       },
       (error) => console.error(error)
@@ -102,7 +120,6 @@ export class FormProdutoComponent implements OnInit, AfterViewInit {
   }
 
   adicionarProduto(): void {
-
   }
 
 }
