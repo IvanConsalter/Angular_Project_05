@@ -51,7 +51,7 @@
 				</ng-template>
 				<ng-template pTemplate="header">
 					<tr>
-            <th></th>
+            <th>Imagem</th>
 						<th pSortableColumn="nome">
 							Nome <p-sortIcon field="nome"></p-sortIcon>
 						</th>
@@ -69,7 +69,13 @@
 				</ng-template>
 				<ng-template pTemplate="body" let-produto>
 					<tr>
-						<td></td>
+						<td>
+							<img
+								src="{{ imagensUrl }}{{ produto.imagem }}"
+								alt="{{ produto.nome }}"
+								class="produto-imagem"
+							>
+						</td>
 						<td>
               {{ produto.nome }}
             </td>

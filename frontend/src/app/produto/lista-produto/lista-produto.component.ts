@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
+import { environment } from 'src/environments/environment';
 import { Produto } from '../models/produto.model';
 import { ProdutoService } from '../services/produto.service';
 
@@ -10,6 +11,7 @@ import { ProdutoService } from '../services/produto.service';
 })
 export class ListaProdutoComponent implements OnInit {
 
+  imagensUrl: string = environment.imagensUrl;
   produtos: Array<Produto> = [];
 
   constructor(private produtoService: ProdutoService) { }
