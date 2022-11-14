@@ -1,4 +1,4 @@
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -26,6 +26,14 @@ export class ProdutoService extends BaseService {
       .pipe(
         catchError(super.serviceError)
       );
+  }
+
+  novoProduto(produto: Produto): Observable<Produto> {
+    return this.http.post<Produto>(`${this.urlService}/produtos`, produto, super.ObterAuthHeaderJson())
+      .pipe(
+        map(super.extractData),
+        catchError(super.serviceError)
+      )
   }
 
 }

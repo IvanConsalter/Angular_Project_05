@@ -1,4 +1,5 @@
-import { ActivatedRoute } from '@angular/router'
+import { StringUtils } from './../../shared/utils/string-utils';
+import { ActivatedRoute, Router } from '@angular/router'
 import {
 	Component,
 	OnInit,
@@ -22,6 +23,7 @@ import {
 } from 'src/app/shared/utils/generic-form-validation'
 import { IFornecedor, Produto } from '../models/produto.model'
 import { Dimensions, ImageCroppedEvent, ImageTransform, LoadedImage } from 'ngx-image-cropper'
+import { ProdutoService } from '../services/produto.service'
 
 @Component({
 	selector: 'app-form-produto',
@@ -56,8 +58,10 @@ export class FormProdutoComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
+		private router: Router,
 		private formBuilder: FormBuilder,
-		private fornecedorService: FornecedorService
+		private fornecedorService: FornecedorService,
+		private produtoService: ProdutoService
 	) {
 		this.validationMessages = {
 			fornecedor: {
@@ -172,7 +176,25 @@ export class FormProdutoComponent implements OnInit, AfterViewInit {
 		)
 	}
 
-	adicionarProduto(): void { }
+	adicionarProduto(): void {
+		this.produto = Object.assign(this.produto, this.produtoForm.value);
+
+		this.produto.fornecedorId = this.produtoForm.controls['fornecedorForm'].value.fornecedor.fornecedorId;
+		this.produto.nomeFornecedor = this.produtoForm.controls['fornecedorForm'].value.fornecedor.nomeFornecedor;
+		delete this.produto.id;
+		delete this.produto.dataCadastro;
+		delete this.produto.fornecedorForm;
+		this.produto.imagem = this.imagemNome;
+		this.produto.imagemUpload = this.croppedImage.split(',')[1];
+		this.produto.valor = StringUtils.StringParaDecimal(this.produto.valor);
+
+		this.produtoService.novoProduto(this.produto).subscribe(
+			() => {
+				this.router.navigate(['produtos']);
+			},
+			(error) => console.error(error)
+		)
+	}
 
 	fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;

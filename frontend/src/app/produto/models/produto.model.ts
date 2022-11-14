@@ -1,13 +1,14 @@
 export class Produto {
-  id: string;
-  fornecedorId: string;
+  id?: string;
   nome: string;
   descricao: string;
   imagemUpload: string;
   imagem: string;
   valor: number;
-  dataCadastro: string;
+  dataCadastro?: string;
   ativo: boolean;
+  fornecedorForm: any;
+  fornecedorId: string;
   nomeFornecedor: string;
 }
 
