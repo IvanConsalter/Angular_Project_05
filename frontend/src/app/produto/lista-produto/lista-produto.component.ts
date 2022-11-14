@@ -11,7 +11,9 @@ import { ProdutoService } from '../services/produto.service';
 })
 export class ListaProdutoComponent implements OnInit {
 
+  mostrarDialogExclusao: boolean = false;
   imagensUrl: string = environment.imagensUrl;
+  produto: Produto;
   produtos: Array<Produto> = [];
 
   constructor(private produtoService: ProdutoService) { }
@@ -28,6 +30,21 @@ export class ListaProdutoComponent implements OnInit {
       (error) => console.error(error)
     )
   }
+
+  excluirProduto(produto: Produto): void {
+		this.produto = {...produto};
+		this.mostrarDialogExclusao = true;
+	}
+
+	confirmarExclusaoProduto(): void {
+		this.produtoService.excluirProduto(this.produto).subscribe(
+			() => {
+				this.consultarProdutos();
+				this.mostrarDialogExclusao = false;
+			},
+			(error) => console.error(error)
+		)
+	}
 
   onGlobalFilter(table: Table, event: Event) {
 		table.filterGlobal((event.target as HTMLInputElement).value, 'contains')

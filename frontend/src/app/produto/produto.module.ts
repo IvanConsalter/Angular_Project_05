@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     TableModule,
     DropdownModule,
     InputTextareaModule,
-    CheckboxModule
+    CheckboxModule,
+    DialogModule
   ],
   providers: [
     ProdutoGuard
