@@ -12,6 +12,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 @NgModule({
@@ -25,6 +26,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     ReactiveFormsModule,
 
     ProdutoRoutingModule,
+
+    ImageCropperModule,
 
     ToolbarModule,
     ButtonModule,
